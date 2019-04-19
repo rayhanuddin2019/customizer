@@ -602,6 +602,17 @@ jQuery( document ).ready(function($) {
 	function acp_update_alpha_value_on_alpha_slider( alpha, $alphaSlider ) {
 		$alphaSlider.slider( 'value', alpha );
 		$alphaSlider.find( '.ui-slider-handle' ).text( alpha.toString() );
-	}
+   }
+   
+   /* 
+   * customize-control-dropdown-text
+   */
 
+
+   $(".custom-typhography-fonts").change(function(){
+
+       $('.customize-control-dropdown-text').val($(".custom-typhography-fonts").val()+" "+$(".custom-typhography-fonts-size").val()).trigger('change');
+    });
+  
+     
 });

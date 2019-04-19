@@ -174,11 +174,30 @@ if( class_exists( 'WP_Customize_Control' ) ):
    
    class Info_Custom_control extends WP_Customize_Control{
       public $type = 'text';
+
+      public function enqueue() {
+
+		   wp_enqueue_script( 'customizer-control-repeat', TS_JS . '/customizer_repeater.js', array( 'jquery' ), TS_VERSION, true );
+    
+		}
       public function render_content(){
          ?>
          <span class="customize-control-dropdown"><?php echo esc_html( $this->label ); ?></span>
+          <input type="text" class="customize-control-dropdown-text" value="<?php echo esc_attr( $this->value() ); ?>" name="<?php echo esc_attr( $this->id ); ?>" <?php $this->link(); ?> />
+
+         <select class="custom-typhography-fonts">
+            <option value="lateo">lateo</option>
+            <option value="times">time</option>
+            <option value="relay">relay</option>
        
-         <input type="text" class="customize-control-dropdown-select2" value="<?php echo esc_attr( $this->value() ); ?>" name="<?php echo esc_attr( $this->id ); ?>" <?php $this->link(); ?> />
+         </select>
+
+         <select class="custom-typhography-fonts-size">
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+       
+         </select>
          <?php
       }
    }

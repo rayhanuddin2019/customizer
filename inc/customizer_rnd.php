@@ -207,50 +207,69 @@ function rnd_customizer_settings($wp_customizer){
    //    )
    // ) );
    //icon picker
-   // $wp_customizer->add_setting( 'sample_icon_picker_color',
-   //    array(
-   //       'default' => '',
-   //       'transport' => 'postMessage'
-   //    )
-   // );
-   // $wp_customizer->add_control( new Customizer_Icon_Picker_Control( $wp_customizer, 'sample_icon_picker_color',
-   // array(
-   //    'label' => __( 'Alpa icon Picker Control' ),
-   //    'description' => esc_html__( 'Sample custom control description' ),
-   //    'section' => 'rnd_general_header_section',
+   $wp_customizer->add_setting( 'sample_icon_picker_color',
+      array(
+         'default' => '',
+         'transport' => 'postMessage'
+      )
+   );
+   $wp_customizer->add_control( new Customizer_Icon_Picker_Control( $wp_customizer, 'sample_icon_picker_color',
+   array(
+      'label' => __( 'Alpa icon Picker Control' ),
+      'description' => esc_html__( 'Sample custom control description' ),
+      'section' => 'rnd_general_header_section',
    
       
-   // )
-   // ) );
+   )
+   ) );
 
-   $wp_customizer->add_setting( 'h2_font_style', 
+   $wp_customizer->add_setting( 'custom_h2_font_style', 
     array( 
-     'default' => 'normal', 
-     'transport' => 'postMessage' 
+     'default' => '', 
+     'transport' => 'postMessage',
+     'type' => 'custom-typography' 
      )
     );
    
   $wp_customizer->add_control(
-   new Customizer_Typo_Control_Typography(
+   new Customizer_Custom_Typography_Control(
       $wp_customizer,
-      'h2_font_style',
+      'custom_h2_font_style',
       array(
-         'label'       => esc_html__( 'Paragraph Typography', 'ctypo' ),
-         'description' => __( 'Select how you want your paragraphs to appear.', 'ctypo' ),
-         'section'     => 'rnd_general_header_section',
-         'settings'    => array(
-            'family'      => 'p_font_family',
-            'weight'      => 'p_font_weight',
-            'style'       => 'p_font_style',
-            'size'        => 'p_font_size',
-            'line_height' => 'p_line_height'
+         'label' => __( 'Alpa typho Picker Control' ),
+         'description' => esc_html__( 'Sample custom control description' ),
+         'section' => 'rnd_general_header_section',
+         'input_attrs' => array(
+            'placeholder' => __( 'Please select a state...', 'skyrocket' ),
+            'multiselect' => true,
          ),
-
-         // Pass custom labels. Use the setting key (above) for the specific label.
-         'l10n'        => array(),
+         'choices' => array(
+            'nsw' => __( 'New South Wales', 'skyrocket' ),
+            'vic' => __( 'Victoria', 'skyrocket' ),
+            'qld' => __( 'Queensland', 'skyrocket' ),
+            'wa' => __( 'Western Australia', 'skyrocket' ),
+            'sa' => __( 'South Australia', 'skyrocket' ),
+            'tas' => __( 'Tasmania', 'skyrocket' ),
+            'act' => __( 'Australian Capital Territory', 'skyrocket' ),
+            'nt' => __( 'Northern Territory', 'skyrocket' ),
+         )
+      
+         
       )
    )
 );
+
+$wp_customizer->add_setting('custom_info_asdasd', array(
+	'default'           => '',
+	
+ 
+));
+$wp_customizer->add_control(new Info_Custom_control($wp_customizer, 'custom_info_asdasd', array(
+	'label'    		=> esc_html__('A custom notice', 'mytheme'),
+	'section'  		=> 'rnd_general_header_section',
+)));
+  
+
 
 }
 

@@ -9,6 +9,8 @@
 ( function( $ ,api) {
  
    "use strict";
+
+   
       wp.customize.bind('ready', function() {
          rangeSlider();
     });

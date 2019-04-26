@@ -622,6 +622,7 @@ input[type="number"]:focus {
 	margin-bottom: 10px;
 }
 
+
 /*  range value controller   */
 
 
@@ -1057,6 +1058,34 @@ input::-moz-focus-inner, input::-moz-focus-outer {
 	}
 }
 
-/* typhography */
+/* dimension */
 
+.custom-dimension-control-visible-section .custom-dimension{
+   display: inline-block;
+   width: 23%;
+}
+	
+.custom-dimension-control-visible-section .custom-dimension-control-input{
+  width: 100%;
+}
+	
+.custom-dimension-control-visible-section .custom-dimension span {
+
+      display: block;
+      text-align: center;
+      text-transform: capitalize;
+      font-size: 11px;
+}
+.custom-control-dimension-size {
+   text-align: right;
+}
+.custom-control-dimension-size li {
+   display: inline-block;
+   text-decoration: none;
+   
+}
+.custom-control-dimension-size li.active {
+  color:black; 
+  font-weight: 700; 
+}
 	

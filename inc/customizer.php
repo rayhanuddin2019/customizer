@@ -55,7 +55,7 @@ function ts_customize_partial_blogdescription() {
 function ts_customize_preview_js() {
 
   
-   wp_enqueue_script( 'ts-customizer', TS_JS . '/customizer.js', array( 'customize-preview' ), TS_VERSION, true );
+   wp_enqueue_script( 'ts-customizer', TS_JS . '/customizer.js', array( ), TS_VERSION, true );
 
    
 }

@@ -214,14 +214,8 @@ jQuery( document ).ready(function($) {
 		$(this).parent().find('.customize-control-dropdown-select2').val(select2Val).trigger('change');
 	});
 
-	/**
-	 * Googe Font Select Custom Control
-	 *
-	 * @author Anthony Hortin <http://maddisondesigns.com>
-	 * @license http://www.gnu.org/licenses/gpl-2.0.html
-	 * @link https://github.com/maddisondesigns
-	 */
-
+   
+   
 	$('.google-fonts-list').each(function (i, obj) {
 		if (!$(obj).hasClass('select2-hidden-accessible')) {
 			$(obj).select2();
@@ -295,29 +289,65 @@ jQuery( document ).ready(function($) {
 
 	$('.google_fonts_select_control select').on('change', function() {
 		skyrocketGetAllSelects($(this).parent().parent());
-	});
+   });
+   
+   $('.google_fonts_select_control input').on('input keyup', function() {
+      skyrocketGetAllSelects($(this).parent().parent());
+     
+   });
+   
+   $('.custom_group_typhography_range_font_size').on('input', function() {
+
+      $(this).next(".google-fonts-size-style").val($(this).val()+"px");
+		
+   });
+
+   $('.google-fonts-size-style').on('input', function() {
+      $(this).prev(".custom_group_typhography_range_font_size").val(parseFloat($(this).val()));
+    		
+   });
+  // line
+   $('.custom_group_typhography_line_height').on('input', function() {
+  
+     $(this).next(".google-fonts-lineheight-style").val($(this).val()+"px");
+		
+   });
+
+   $('.google-fonts-lineheight-style').on('input', function() {
+    $(this).prev(".custom_group_typhography_line_height").val(parseFloat($(this).val())) ;
+    	
+   });
+   //letter space
+   $('.custom_group_typhography_letterspace').on('input', function() {
+  
+      $(this).next(".google-fonts-letterspace").val($(this).val()+"px");
+       
+    });
+ 
+    $('.google-fonts-letterspace').on('input', function() {
+     $(this).prev(".custom_group_typhography_letterspace").val(parseFloat($(this).val())) ;
+        
+    });
 
 	function skyrocketGetAllSelects($element) {
 		var selectedFont = {
-			font: $element.find('.google-fonts-list').val(),
-			regularweight: $element.find('.google-fonts-regularweight-style').val(),
-			italicweight: $element.find('.google-fonts-italicweight-style').val(),
-			boldweight: $element.find('.google-fonts-boldweight-style').val(),
-			category: $element.find('.google-fonts-category').val()
-		};
-
+			'font-family': $element.find('.google-fonts-list').val(),
+			'font-weight': $element.find('.google-fonts-regularweight-style').val(),
+			'font-size': $element.find('.google-fonts-size-style').val(),
+			'line-height': $element.find('.google-fonts-lineheight-style').val(),
+			'letter-spacing': $element.find('.google-fonts-letterspace').val(),
+		   'trasnform': $element.find('.google-fonts-trasnform').val(),
+		   'text-decoration': $element.find('.google-fonts-decoration').val(),
+      };
+ 
+     
+     
 		// Important! Make sure to trigger change event so Customizer knows it has to save the field
 		$element.find('.customize-control-google-font-selection').val(JSON.stringify(selectedFont)).trigger('change');
 	}
 
-	/**
-	 * TinyMCE Custom Control
-	 *
-	 * @author Anthony Hortin <http://maddisondesigns.com>
-	 * @license http://www.gnu.org/licenses/gpl-2.0.html
-	 * @link https://github.com/maddisondesigns
-	 */
-
+   $(".wp-editor-tools .wp-media-buttons").remove(); 
+   $(".wp-editor-tools .wp-editor-tabs").remove(); 
 	$('.customize-control-tinymce-editor').each(function(){
 		// Get the toolbar strings that were passed from the PHP Class
 		var tinyMCEToolbar1String = _wpCustomizeSettings.controls[$(this).attr('id')].skyrockettinymcetoolbar1;
@@ -341,15 +371,7 @@ jQuery( document ).ready(function($) {
 		});
 	});
 
-	/**
- 	 * Alpha Color Picker Custom Control
- 	 *
- 	 * @author Braad Martin <http://braadmartin.com>
- 	 * @license http://www.gnu.org/licenses/gpl-3.0.html
- 	 * @link https://github.com/BraadMartin/components/tree/master/customizer/alpha-color-picker
- 	 */
 
-	// Loop over each control and transform it into our color picker.
 	$( '.alpha-color-control' ).each( function() {
 
 		// Scope the vars.
@@ -614,5 +636,85 @@ jQuery( document ).ready(function($) {
        $('.customize-control-dropdown-text').val($(".custom-typhography-fonts").val()+" "+$(".custom-typhography-fonts-size").val()).trigger('change');
     });
   
+    // dimensions
+     
+    $(".dimension-px").click(function(){
+      //wp.customize.previewedDevice.set("tablet");
+      $(this).addClass("active").trigger('change'); 
+      $(this).siblings("li").removeClass("active");
+      $(this).parent(".custom-control-dimension-size").attr("data-unit",'px');
+     });
+
+     $(".dimension-percent").click(function(){
+      //wp.customize.previewedDevice.set("mobile");
+      $(this).addClass("active").trigger('change'); 
+      $(this).siblings("li").removeClass("active");
+      $(this).parent(".custom-control-dimension-size").attr("data-unit",'%');
+     });
+
+     $(".dimension-em").click(function(){
+      $(this).addClass("active").trigger('change'); 
+      $(this).siblings("li").removeClass("active");
+      $(this).parent(".custom-control-dimension-size").attr("data-unit",'em');
+     });
+
+ 
+      $(".custom-dimension-control-input").on('keyup keypress blur change',function(){
+            var id = $(this).parent().parent(".customizer-all-dimensions").data("id");
+            var selector_class =  "."+id;
+            var selector_id =  "#"+id;
+            var type = $(selector_class).data("type");
+            var active_unit = $(selector_id).siblings(".custom-dimension-control-visible-section").children(".custom-control-dimension-size").attr("data-unit");
+          
+            var dimension = [];
+            var top = 'top';
+            var right = 'right';
+            var bottom  = 'bottom';
+            var left  = 'left';
+            if(type!=''){
+                top = type+"-top";
+                right = type+"-right";
+                bottom = type+"-bottom";
+                left = type+"-left";
+            }
+
+           
+            if($(selector_class).find(".custom-dimension-control-input.top").val()!=''){
+                 
+               dimension[top] = $(selector_class).find(".custom-dimension-control-input.top").val()+active_unit;
+             
+            }  
+            if($(selector_class).find(".custom-dimension-control-input.right").val()!=''){
+               
+               dimension[right] = $(selector_class).find(".custom-dimension-control-input.right").val()+active_unit;
+            } 
+            if($(selector_class).find(".custom-dimension-control-input.bottom").val()!=''){
+               dimension[bottom] = $(selector_class).find(".custom-dimension-control-input.bottom").val()+active_unit;
+            } 
+            if($(selector_class).find(".custom-dimension-control-input.left").val()!=''){
+               dimension[left] = $(selector_class).find(".custom-dimension-control-input.left").val()+active_unit;
+            } 
+            var obj = $.extend({}, dimension);
+            $("#"+id).val(JSON.stringify(obj)).trigger('change'); 
+        
+            
+           
+      });
+      
+      // social icon picker
+
+      // $(".iconpicker-popover").hide();
+
+
+      $(".customizer-social-icon-picker").on("click",function(){
+         $(this).next(".iconpicker-popover").show();
+      });
+
+      $(".iconpicker-items-social > i[data-type='iconpicker-item'] ").on("click",function(){
+    
+        $(this).parent(".iconpicker-items").parent(".iconpicker").parent().parent().prev(".customizer-social-icon-picker").val($(this).attr("class")).trigger("change");
+        $(".iconpicker-popover").hide();
+      });
+
      
 });

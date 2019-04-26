@@ -12,11 +12,9 @@ if( class_exists( 'WP_Customize_Control' ) ):
 		 */
 		public function enqueue(){
          wp_enqueue_script( 'skyrocket-custom-controls-js', TS_JS . '/customizer_repeater.js', array( 'jquery', 'jquery-ui-core' ), '1.0', true );
-         wp_enqueue_style( 'skyrocket-custom-controls-css', TS_CSS . '/inc/customizer-custom-controls/css/customizer.css', array(), '1.0', 'all' );
+         wp_enqueue_style( 'customizer-control', TS_CSS . '/inc/customizer-custom-controls/css/customizer.css', array(), '1.0', 'all' );
 
-      
-     
-			wp_enqueue_editor();
+			//wp_enqueue_editor();
 		}
 		/**
 		 * Pass our TinyMCE toolbar string to JavaScript

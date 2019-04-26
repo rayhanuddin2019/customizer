@@ -170,7 +170,7 @@ var gradX = function(id, _options) {
         apply_default_styles: function() {
             this.update_style_array()
             var value = this.get_style_value();
-			console.log(value);
+	   		
             this.apply_style(this.panel, value);
         },
         //update the slider_values[] while dragging
@@ -230,7 +230,7 @@ var gradX = function(id, _options) {
                     style_str = this.direction + " , " + this.type + " " + this.shape + " , " + style_str;
                 }
             }
-
+           
             return style_str;
         },
         //@input rgb string rgb(<red>,<green>,<blue>)
@@ -270,7 +270,7 @@ var gradX = function(id, _options) {
                 } 
                 
                 this.set_colorpicker(rgb);
-                console.log(rgb);
+               
             }
 
         },
@@ -463,6 +463,18 @@ var gradX = function(id, _options) {
             id = this.id;
             this.current_slider_id = false;
             var html = "<div class='gradx'>\n\
+                        <div class='gradx_container' id='gradx_" + id + "'>\n\
+                            <div id='gradx_stop_sliders_" + id + "'></div>\n\
+                            <div class='gradx_panel' id='gradx_panel_" + id + "'></div>\n\
+                            <div class='gradx_start_sliders' id='gradx_start_sliders_" + id + "'>\n\
+                                <div class='cp-default' id='gradx_slider_info'>\n\
+                                    <div id='gradx_slider_controls'>\n\
+                                        <div id='gradx_delete_slider' class='gradx_btn'><i class='icon icon-remove'></i>delete</div>\n\
+                                    </div>\n\
+                                    <div id='gradx_slider_content'></div>\n\
+                                </div> \n\
+                            </div>\n\
+                        </div>\n\
                         <div id='gradx_add_slider' class='gradx_add_slider gradx_btn'><i class='icon icon-add'></i>add</div>\n\
                         <div class='gradx_slectboxes'>\n\
                         <select id='gradx_gradient_type' class='gradx_gradient_type'>\n\
@@ -481,18 +493,6 @@ var gradX = function(id, _options) {
                         </select>\n\
                         <select id='gradx_radial_gradient_size' class='gradx_gradient_type gradx_hide'>\n\
                         </select>\n\
-                        </div>\n\
-                        <div class='gradx_container' id='gradx_" + id + "'>\n\
-                            <div id='gradx_stop_sliders_" + id + "'></div>\n\
-                            <div class='gradx_panel' id='gradx_panel_" + id + "'></div>\n\
-                            <div class='gradx_start_sliders' id='gradx_start_sliders_" + id + "'>\n\
-                                <div class='cp-default' id='gradx_slider_info'>\n\
-                                    <div id='gradx_slider_controls'>\n\
-                                        <div id='gradx_delete_slider' class='gradx_btn'><i class='icon icon-remove'></i>delete</div>\n\
-                                    </div>\n\
-                                    <div id='gradx_slider_content'></div>\n\
-                                </div> \n\
-                            </div>\n\
                         </div>\n\
                         <div id='gradx_show_code' class='gradx_show_code gradx_btn'><i class='icon icon-file-css'></i><span>show the code</span></div>\n\
                         <div id='gradx_show_presets' style='display:none' class='gradx_show_presets gradx_btn'><i class='icon icon-preset'></i><span>show presets</span></div>\n\

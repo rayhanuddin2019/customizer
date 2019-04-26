@@ -43,10 +43,87 @@
 		} );
    } );
 
- 
-   // add new control
+    
+   // add new control  typhography
+   wp.customize( 'custom_typhography_asdasd', function( value ) {
+		value.bind( function( to ) {
+         $( '.entry-content p' ).css( JSON.parse(to) );
+        
+		} );
+   } );
 
-  
+   wp.customize( 'sample_alpa_color', function( value ) {
+		value.bind( function( to ) {
+      
+         $( '.copyright-text p' ).css( {"color":to} );
+        
+		} );
+   } );
    
+   wp.customize( 'sample_gradient_colors', function( value ) {
+		value.bind( function( to ) {
+         var color = JSON.parse(to).background;
+         var obj = [];
+         $.each( color, function( key, value ) {
+            $( '.page-banner-area' ).css( {"background" : value} );
+          }); 
+         
+        
+		} );
+	} );
+   //footer
+   wp.customize( 'sample_tinymce_editor', function( value ) {
+		value.bind( function( to ) {
+         $( '.copyright-text p' ).text( to );
+        
+		} );
+   } );
+  // repeater
+   wp.customize( 'customizer_repeater_examplesa', function( value ) {
+		value.bind( function( to ) {
+         var data = JSON.parse(to);
+         var html = '<ul>';
+         $.each( data, function( key, value ) {
+            html += "<li>";
+            html += value.title+"<br/> "+ value.subtitle; 
+            html += "</li>";
+          }); 
+           html += '</ul>';
+         $( '.entry-content p' ).html( html );
+        
+		} );
+   } );
+
+   //dimension
+
+   wp.customize( 'custom_dimension_2nd', function( value ) {
+		value.bind( function( to ) {
+         var data = JSON.parse(to);  
+      
+         $( '.page-banner-area' ).css( data );
+        
+		} );
+   } );
+
+   wp.customize( 'custom_dimension_3nd', function( value ) {
+		value.bind( function( to ) {
+         var data = JSON.parse(to);  
+ 
+         $( '.navbar.navbar-light' ).css( data );
+        
+		} );
+   } );
+
+   wp.customize( 'code_editor_css', function( value ) {
+		value.bind( function( to ) {
+       
+		} );
+   } );
+
+   wp.customize( 'social_icon_picker_color', function( value ) {
+		value.bind( function( to ) {
+        $(".banner-title").html($(".banner-title").text() + '<i class="'+ to +'">'+'</i>');
+		} );
+   } );
    
 } )( jQuery );

@@ -1,26 +1,46 @@
 <?php
 if( class_exists( 'WP_Customize_Control' ) ):
-class Customizer_Gradient_Color_Picker_Control extends \WP_Customize_Control {
-	public $type = 'gradient-color-picker';
 
+class Customizer_Gradient_Color_Picker_Control extends \WP_Customize_Control {
+
+   public $type = 'gradient-color-picker';
+
+    
+   public $color = 'red';
+   public $color_pos = '50';
+   public function __construct( $manager, $id, $args = array() ) {
+	
+      parent::__construct( $manager, $id, $args );
+      
+      if( isset($this->input_attrs["color"]) ) {
+        $this->color = $this->input_attrs["color"];
+      }
+
+      if( isset($this->input_attrs["position"]) ) {
+         $this->color_pos = $this->input_attrs["position"];
+       }
+   }
+   
 	/**
 	 * Enqueue scripts/styles.
 	 *
 	 * @since 3.4.0
 	 */
+
+   
 	public function enqueue() {
  
    
       wp_enqueue_script( 'animatedModal', TS_THEME_URI . '/assets/modal/js/animatedModal.js', array( 'jquery' ), TS_VERSION, false );
       
-      wp_enqueue_script( 'colorpicker-sdsd', TS_THEME_URI . '/assets/gredient/colorpicker/js/colorpicker.js', array( 'jquery' ), TS_VERSION, false );
+      wp_enqueue_script( 'colorpicker-jquery', TS_THEME_URI . '/assets/gredient/colorpicker/js/colorpicker.js', array( 'jquery' ), TS_VERSION, false );
 
      wp_enqueue_script( 'gradX-custom', TS_THEME_URI . '/assets/gredient/gradX.js', array( 'jquery' ), TS_VERSION, false );
      wp_enqueue_script( 'dom-drag', TS_THEME_URI . '/assets/gredient/dom-drag.js', array( 'jquery' ), TS_VERSION, false );
    
 
-     wp_enqueue_style( 'animate-kjh', TS_THEME_URI . '/assets/modal/css/animate.min.css', null, TS_VERSION );
-     wp_enqueue_style( 'colorpicker-kjh', TS_THEME_URI . '/assets/gredient/colorpicker/css/colorpicker.css', null, TS_VERSION );
+     wp_enqueue_style( 'animate-min', TS_THEME_URI . '/assets/modal/css/animate.min.css', null, TS_VERSION );
+     wp_enqueue_style( 'colorpicker-style', TS_THEME_URI . '/assets/gredient/colorpicker/css/colorpicker.css', null, TS_VERSION );
      wp_enqueue_style( 'gradX', TS_THEME_URI . '/assets/gredient/gradX.css', null, TS_VERSION );
 
 
@@ -35,59 +55,42 @@ class Customizer_Gradient_Color_Picker_Control extends \WP_Customize_Control {
 	public function render_content() {
 		?>
 		<label>
-         <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-         <?php //echo $this->value(); ?>
-         <a id="gradient-control" href="#modal-gradient"> Edit Color</a>
-     
-        <!--DEMO02-->
-        <div id="modal-gradient">
-            <!--"THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID-->
-            <div  id="btn-close-modal" class="close-modal-gradient"> 
-                CLOSE 
-            </div>
-            
-            <div class="modal-content">
-               <div id="gradient-color" ></div>
-               <div class="gradient-result"> </div>
-            </div>
-        </div>
+          <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+        
+
+         <input  type="hidden" id="<?php echo esc_attr( $this->id ); ?>" class="customize-control-gradient-editor" <?php $this->link(); ?> value="<?php echo $this->value(); ?>" />
+         
+         <div id="gradient-color" ></div>
+        
    
          <script>
- 
+           
+             var sliders = [];
+             var data = [];
+            <?php if($this->value()!=''): ?> 
+              data = <?php echo $this->value(); ?>
+                 
+              if(data!=''){
+                  $.each( data.color, function( key, value ) {
+                    sliders[key] = {color:value[0], position:value[1]};
+                 });
+              }
+            
+            <?php endif; ?>
+             
             gradX("#gradient-color", {
                code_shown: false,
+               sliders: sliders,
                change: function(stops, styles) {
-                // $(".gradient-result").html(styles);
-                $(".gradient-result").css({"height": "200px", "margin-left": "20px","width":"60%"});
-         
-                  for(var i=0; i<styles.length; i++)  {  
-                  $(".gradient-result").css("background",styles[i]);
-               }
+                  
+                 var obj = {"background":styles,"color":stops};  
+                 $(".customize-control-gradient-editor").val(JSON.stringify(obj) ) .trigger('change');
                }, 
               
             });
-
-         $("#gradient-control").animatedModal({
-         
-            color:'#e1e1e1',
-            // Callbacks
-            beforeOpen: function() {
-               
-            },           
-            afterOpen: function() {
-              
-            }, 
-            beforeClose: function() {
-              
-            }, 
-            afterClose: function() {
-             
-            }
-         });
-
+   
          </script>
-        
-      
+             
 		</label>
 		<?php
 	}

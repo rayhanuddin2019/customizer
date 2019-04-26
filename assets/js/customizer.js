@@ -125,5 +125,11 @@
         $(".banner-title").html($(".banner-title").text() + '<i class="'+ to +'">'+'</i>');
 		} );
    } );
+
+   wp.customize( 'footer_widgets_layout_setting', function( value ) {
+		value.bind( function( to ) {
+        console.log(to);
+		} );
+   } );
    
 } )( jQuery );

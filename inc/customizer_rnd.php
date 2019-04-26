@@ -72,6 +72,12 @@ function rnd_customizer_settings($wp_customizer){
       'panel' => 'rnd_panel'
    ) );
 
+   $wp_customizer->add_section( 'rnd_general_footer_section', array(
+      'title'           => esc_html__( 'Footer widget', 'ts' ),
+      'priority'        => '30',
+      'panel' => 'rnd_panel'
+   ) );
+
 //   //   color
 //   $wp_customizer->add_setting(
 //       'rnd_general_header_button_bg_color', //give it an ID
@@ -108,26 +114,27 @@ function rnd_customizer_settings($wp_customizer){
 //   ) ) );
   
 //   // footer range control
-//   $wp_customizer->add_setting( 'footer_widgets_layout_setting', array(
-//       'default'        => '',
-//    ) );
+  $wp_customizer->add_setting( 'footer_widgets_layout_setting', array(
+      'default'        => '',
+      'transport' => 'postMessage'
+   ) );
 
-//   $wp_customizer->add_control( new WP_Customize_Range_Control(
-//    $wp_customizer,
-//    'footer_widgets_layout_setting',
-//       array(
-//          'priority'    => 1,
-//          'label'       => _x( 'Footer widgets layout', 'backend', 'mentalpress_wp' ),
-//          'description' => _x( 'Select number of widget you want in the footer and then with the slider rearrange the layout', 'backend', 'mentalpress_wp' ),
-//          'section'     => 'rnd_general_header_section',
-//          'input_attrs' => array(
-//             'min'     => 0,
-//             'max'     => 12,
-//             'step'    => 1,
-//             'maxCols' => 6,
-//          )
-//       )
-//    ) );
+  $wp_customizer->add_control( new WP_Customize_Range_Control(
+   $wp_customizer,
+   'footer_widgets_layout_setting',
+      array(
+         'priority'    => 1,
+         'label'       => _x( 'Footer widgets layout', 'backend', 'mentalpress_wp' ),
+         'description' => _x( 'Select number of widget you want in the footer and then with the slider rearrange the layout', 'backend', 'mentalpress_wp' ),
+         'section'     => 'rnd_general_footer_section',
+         'input_attrs' => array(
+            'min'     => 0,
+            'max'     => 12,
+            'step'    => 1,
+            'maxCols' => 6,
+         )
+      )
+   ) );
 
 //   // date picker
 
